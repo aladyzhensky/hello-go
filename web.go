@@ -70,7 +70,6 @@ func main() {
 	password := creds.Password
  
 // Use host, port, user and password to connect to MySQL using the chosen driver
-} 
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
