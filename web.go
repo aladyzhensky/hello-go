@@ -21,6 +21,18 @@ type T struct {
 	B []int
 }
 
+type ClearDBInfo struct {
+Credentials ClearDBCredentials `json:"credentials"`
+}
+ 
+type ClearDBCredentials struct {
+Host string `json:"host"`
+Port string `json:"port"`
+User string `json:"user"`
+Password string `json:"password"`
+}
+  
+
 func main() {
 	log := make(log4go.Logger)
 	log.AddFilter("stdout", log4go.DEBUG, log4go.NewConsoleLogWriter())
@@ -34,10 +46,35 @@ func main() {
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		panic(err)
 	}
+	
+	 s := os.Getenv("VCAP_SERVICES")
+	services := make(map[string][]ClearDBInfo)
+	err := json.Unmarshal([]byte(s), &services)
+	if err != nil {
+	log.Printf("Error parsing MySQL connection information: %v\n", err.Error())
+	return
+	}
+ 
+	info := services["cleardb"]
+	if len(info) == 0 {
+	log.Printf("No ClearDB databases are bound to this application.\n")
+	return
+	}
+ 
+	// Assumes only a single ClearDB is bound to this application
+	creds := info[0].Credentials
+ 
+	host := creds.Host
+	port := creds.Port
+	user := creds.User
+	password := creds.Password
+ 
+// Use host, port, user and password to connect to MySQL using the chosen driver
+} 
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
-	// Dump Go version
+		// Dump Go version
 	fmt.Fprintf(res, "%v\n\n", runtime.Version())
 
 	// Dump ENV
@@ -108,6 +145,8 @@ func hello(res http.ResponseWriter, req *http.Request) {
     if err = rows.Err(); err != nil {
         panic(err.Error()) // proper error handling instead of panic in your app
     }
+    
+    fmt.Println(password)
 	
 	
 }
