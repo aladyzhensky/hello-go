@@ -6,4 +6,6 @@ applications:
   buildpack: https://github.com/michaljemala/cloudfoundry-buildpack-go.git
   host: hello-go-${random-word}
   domain: cfapps.io
+  service:
+    - myspark
   path: .
