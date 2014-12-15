@@ -52,13 +52,13 @@ func main() {
 	services := make(map[string][]ClearDBInfo)
 	err := json.Unmarshal([]byte(s), &services)
 	if err != nil {
-	log.Printf("Error parsing MySQL connection information: %v\n", err.Error())
+	log.Debug("Error parsing MySQL connection information: %v\n", err.Error())
 	return
 	}
  
 	info := services["cleardb"]
 	if len(info) == 0 {
-	log.Printf("No ClearDB databases are bound to this application.\n")
+	log.Debug("No ClearDB databases are bound to this application.\n")
 	return
 	}
  
@@ -145,8 +145,4 @@ func hello(res http.ResponseWriter, req *http.Request) {
     if err = rows.Err(); err != nil {
         panic(err.Error()) // proper error handling instead of panic in your app
     }
-    
-    fmt.Println(password)
-	
-	
 }
