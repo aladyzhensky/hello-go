@@ -65,9 +65,9 @@ func main() {
 	// Assumes only a single ClearDB is bound to this application
 	creds := info[0].Credentials
  
-	host := creds.Host
-	port := creds.Port
-	user := creds.User
+	host := creds.hostname
+	port := creds.port
+	name := creds.User
 	password := creds.Password
  
 // Use host, port, user and password to connect to MySQL using the chosen driver
