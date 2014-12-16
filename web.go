@@ -10,6 +10,7 @@ import (
 	"database/sql"
       _ "github.com/go-sql-driver/mysql"
         "encoding/json"
+        "log"
 )
 
 const (
@@ -31,7 +32,7 @@ hostname string `json:"host"`
 port string `json:"port"`
 user string `json:"user"`
 password string `json:"password"`
-dbname string `json:"dbname"`
+dbname string `json:"name"`
 }
   
 
