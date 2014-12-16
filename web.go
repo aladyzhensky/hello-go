@@ -29,8 +29,8 @@ Credentials ClearDBCredentials `json:"credentials"`
 type ClearDBCredentials struct {
 hostname string `json:"host"`
 port string `json:"port"`
- string `json:"user"`
-Password string `json:"password"`
+user string `json:"user"`
+password string `json:"password"`
 }
   
 
@@ -68,7 +68,7 @@ func main() {
 	host := creds.hostname
 	port := creds.port
 	name := creds.user
-	password := creds.Password
+	password := creds.password
  
 // Use host, port, user and password to connect to MySQL using the chosen driver
 }
