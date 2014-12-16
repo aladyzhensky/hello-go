@@ -31,6 +31,7 @@ hostname string `json:"host"`
 port string `json:"port"`
 user string `json:"user"`
 password string `json:"password"`
+dbname string `json:"dbname"`
 }
   
 
@@ -48,29 +49,6 @@ func main() {
 		panic(err)
 	}
 	
-	 s := os.Getenv("VCAP_SERVICES")
-	services := make(map[string][]ClearDBInfo)
-	err := json.Unmarshal([]byte(s), &services)
-	if err != nil {
-	log.Debug("Error parsing MySQL connection information: %v\n", err.Error())
-	return
-	}
- 
-	info := services["cleardb"]
-	if len(info) == 0 {
-	log.Debug("No ClearDB databases are bound to this application.\n")
-	return
-	}
- 
-	// Assumes only a single ClearDB is bound to this application
-	creds := info[0].Credentials
- 
-	host := creds.hostname
-	portnumber := creds.port
-	name := creds.user
-	password := creds.password
-	
-	fmt.Print(host,portnumber,name,password)
  
 // Use host, port, user and password to connect to MySQL using the chosen driver
 }
@@ -93,7 +71,34 @@ func hello(res http.ResponseWriter, req *http.Request) {
 		fmt.Fprintf(res, "\n\n--- \n%s", d)
 	}
 	
-	db, err := sql.Open("mysql", "user:password@/dbname")
+	
+	s := os.Getenv("VCAP_SERVICES")
+	services := make(map[string][]ClearDBInfo)
+	err := json.Unmarshal([]byte(s), &services)
+	if err != nil {
+	log.Debug("Error parsing MySQL connection information: %v\n", err.Error())
+	return
+	}
+ 
+	info := services["cleardb"]
+	if len(info) == 0 {
+	log.Debug("No ClearDB databases are bound to this application.\n")
+	return
+	}
+ 
+	// Assumes only a single ClearDB is bound to this application
+	creds := info[0].Credentials
+ 
+	host := creds.hostname
+	portnumber := creds.port
+	name := creds.user
+	password := creds.password
+	dbname := creds.name
+	
+	fmt.Print(host,portnumber,name,password)	
+	
+	
+	db, err := sql.Open(user:password@tcp(host:port)/dbname?tls=skip-verify&autocommit=true)
     if err != nil {
         panic(err.Error())  // Just for example purpose. You should use proper error handling instead of panic
     }
