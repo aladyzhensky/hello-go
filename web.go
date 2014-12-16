@@ -70,7 +70,7 @@ func main() {
 	name := creds.user
 	password := creds.password
 	
-	fmt.Fprintf(host,portnumber,name,password)
+	fmt.Print(host,portnumber,name,password)
  
 // Use host, port, user and password to connect to MySQL using the chosen driver
 }
