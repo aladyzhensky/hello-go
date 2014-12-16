@@ -66,7 +66,7 @@ func main() {
 	creds := info[0].Credentials
  
 	host := creds.hostname
-	port := creds.port
+	//port := creds.port
 	name := creds.User
 	password := creds.Password
  
