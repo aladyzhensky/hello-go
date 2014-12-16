@@ -66,8 +66,8 @@ func main() {
 	creds := info[0].Credentials
  
 	host := creds.hostname
-	//port := creds.port
-	name := creds.User
+	port := creds.port
+	name := creds.user
 	password := creds.Password
  
 // Use host, port, user and password to connect to MySQL using the chosen driver
