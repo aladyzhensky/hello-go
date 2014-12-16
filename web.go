@@ -98,7 +98,7 @@ func hello(res http.ResponseWriter, req *http.Request) {
 	fmt.Print(host,portnumber,name,password)	
 	
 	
-	db, err := sql.Open(user:password@tcp(host:port)/dbname?tls=skip-verify&autocommit=true)
+	db, err := sql.Open("mysql", "<user>:<password>@tcp(<host>:<portnumber>)/<dbname>")
     if err != nil {
         panic(err.Error())  // Just for example purpose. You should use proper error handling instead of panic
     }
