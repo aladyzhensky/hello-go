@@ -27,9 +27,9 @@ Credentials ClearDBCredentials `json:"credentials"`
 }
  
 type ClearDBCredentials struct {
-Host string `json:"host"`
-Port string `json:"port"`
-User string `json:"user"`
+hostname string `json:"host"`
+port string `json:"port"`
+ string `json:"user"`
 Password string `json:"password"`
 }
   
